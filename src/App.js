@@ -21,7 +21,7 @@ export default function App() {
 	const setEditForTodo = useSetEditForTodo(todos, setTodos);
 	const deleteTodo = useDeleteTodo(refreshList);
 	const searchTodo = useSearchTodo(setTodos);
-	const sortTodos = useSortTodos(setTodos);
+	const sortTodos = useSortTodos(todos, setTodos);
 
 	function refreshList() {
 		setRefreshListFlag((refreshListFlag) => !refreshListFlag);
