@@ -1,24 +1,14 @@
 {
   "tasks": [
     {
-      "title": "Train again",
+      "title": "dwedwe",
+      "isEditing": false,
+      "id": 1
+    },
+    {
+      "title": "dwedewd",
       "isEditing": false,
       "id": 2
-    },
-    {
-      "title": "Go shopping",
-      "isEditing": false,
-      "id": 3
-    },
-    {
-      "title": "Make something great",
-      "isEditing": false,
-      "id": 4
-    },
-    {
-      "title": "new task #1",
-      "isEditing": false,
-      "id": 5
     }
   ]
 }
