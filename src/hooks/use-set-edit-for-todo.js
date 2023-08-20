@@ -1,10 +1,10 @@
-export function useSetEditForTodo(todos, setTodos) {
+import { useDispatch } from 'react-redux';
+import { setEditForTodoAction } from '../actions/setEditForTodo';
+
+export function useSetEditForTodo() {
+	const dispatch = useDispatch();
 	function setEditForTodo(id) {
-		setTodos(
-			todos.map((todo) =>
-				todo.id === id ? { ...todo, isEditing: true } : todo,
-			),
-		);
+		dispatch(setEditForTodoAction(id));
 	}
 
 	return setEditForTodo;

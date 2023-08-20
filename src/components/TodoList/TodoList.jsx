@@ -1,8 +1,12 @@
 import styles from './TodoList.module.css';
 import { TodoItem } from '../TodoItem';
 import { EditTodo } from '../EditTodo';
+import { useSelector } from 'react-redux';
+import { selectTodos } from '../../selectors/selectors';
 
-export function TodoList({ todos }) {
+
+export function TodoList() {
+  const todos = useSelector(selectTodos)
 
 	return (
 		<ul className={styles.todosList}>
@@ -10,7 +14,9 @@ export function TodoList({ todos }) {
         ? todos.map((todo) =>
           todo.isEditing 
           ? (
-            <EditTodo key={todo.id} todo={todo} />
+            <EditTodo 
+              todo={todo} 
+              key={todo.id} />
           ) : (
             <TodoItem
               todo={todo}

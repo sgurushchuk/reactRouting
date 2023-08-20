@@ -1,51 +1,29 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './App.module.css';
 import { TodoInput, SearchTodos, TodoList } from './components';
-import { TodoListContext } from './context';
-import {
-	useGetTodos,
-	useAddTodo,
-	useDeleteTodo,
-	useSubmitEditedTodo,
-	useSearchTodo,
-	useSetEditForTodo,
-	useSortTodos,
-} from './hooks';
+import { getTodos } from './actions';
+import { selectIsLoading, selectRefreshList } from './selectors/selectors';
 
 export default function App() {
-	const [refreshListFlag, setRefreshListFlag] = useState(false);
-	const [inputSearchValue, setInputSearchValue] = useState('');
-	const { isLoading, todos, setTodos } = useGetTodos(refreshListFlag);
-	const { isCreating, addTodo } = useAddTodo(refreshList);
-	const { isUpdating, submitEditedTodo } = useSubmitEditedTodo(refreshList);
-	const setEditForTodo = useSetEditForTodo(todos, setTodos);
-	const deleteTodo = useDeleteTodo(refreshList);
-	const searchTodo = useSearchTodo(setTodos);
-	const sortTodos = useSortTodos(todos, setTodos);
+	const dispatch = useDispatch();
+	const isLoading = useSelector(selectIsLoading);
+	const refreshList = useSelector(selectRefreshList);
 
-	function refreshList() {
-		setRefreshListFlag((refreshListFlag) => !refreshListFlag);
-	}
+	useEffect(() => {
+		dispatch(getTodos());
+	}, [refreshList, dispatch]);
 
 	return (
 		<>
 			<div className={styles.App}>
-				<TodoInput addTodo={addTodo} isCreating={isCreating} />
+				<TodoInput />
 				<h1>Todo list</h1>
-				<SearchTodos
-					searchTodo={searchTodo}
-					sortTodos={sortTodos}
-					inputSearchValue={inputSearchValue}
-					setInputSearchValue={setInputSearchValue}
-				/>
+				<SearchTodos />
 				{isLoading ? (
 					<div className={styles.loader}>Loading...</div>
 				) : (
-					<TodoListContext.Provider
-						value={{ submitEditedTodo, deleteTodo, setEditForTodo, isUpdating }}
-					>
-						<TodoList todos={todos} />
-					</TodoListContext.Provider>
+					<TodoList />
 				)}
 			</div>
 		</>

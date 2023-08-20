@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { UPDATE_REFRESH_LIST_FLAG } from '../actions';
 
 export function useSubmitEditedTodo(refreshList) {
-	const [isUpdating, setIsUpdating] = useState(false);
+	const dispatch = useDispatch();
 
 	function submitEditedTodo(title, id) {
-		setIsUpdating(true);
 		fetch(`http://localhost:3004/tasks/${id}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },
@@ -13,10 +13,9 @@ export function useSubmitEditedTodo(refreshList) {
 			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
 				console.log(response);
-				refreshList();
-			})
-			.finally(setIsUpdating(false));
+				dispatch(UPDATE_REFRESH_LIST_FLAG);
+			});
 	}
 
-	return { isUpdating, submitEditedTodo };
+	return { submitEditedTodo };
 }

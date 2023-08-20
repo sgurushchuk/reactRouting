@@ -1,4 +1,9 @@
-export function useDeleteTodo(refreshList) {
+import { useDispatch } from 'react-redux';
+import { UPDATE_REFRESH_LIST_FLAG } from '../actions';
+
+export function useDeleteTodo() {
+	const dispatch = useDispatch();
+
 	function deleteTodo(id) {
 		fetch(`http://localhost:3004/tasks/${id}`, {
 			method: 'DELETE',
@@ -6,7 +11,7 @@ export function useDeleteTodo(refreshList) {
 			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
 				console.log('Task deleted ', response);
-				refreshList();
+				dispatch(UPDATE_REFRESH_LIST_FLAG);
 			});
 	}
 

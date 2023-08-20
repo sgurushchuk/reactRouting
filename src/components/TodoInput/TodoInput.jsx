@@ -1,8 +1,10 @@
+import { useAddTodo } from '../../hooks';
 import styles from './TodoInput.module.css';
 import { useState } from 'react';
 
-export function TodoInput({ addTodo, isCreating }) {
+export function TodoInput() {
 	const [inputValue, setInputValue] = useState('');
+  const { addTodo } = useAddTodo();
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -19,7 +21,7 @@ export function TodoInput({ addTodo, isCreating }) {
 				type="text"
 				placeholder="New todo"
 			/>
-			<button disabled={isCreating} className={styles.addBtn}>Add</button>
+			<button className={styles.addBtn}>Add</button>
 		</form>
 	);
 }

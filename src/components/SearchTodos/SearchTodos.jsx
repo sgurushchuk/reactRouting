@@ -1,6 +1,12 @@
+import { useSearchTodo, useSortTodos } from '../../hooks';
 import styles from './SearchTodos.module.css';
+import { useState } from 'react';
 
-export function SearchTodos({ searchTodo, sortTodos, inputSearchValue, setInputSearchValue }) {
+export function SearchTodos() {
+
+	const [inputSearchValue, setInputSearchValue] = useState('');
+  const searchTodo = useSearchTodo();
+  const sortTodos = useSortTodos();
 
 	return (
     <><form className={styles.searchForm}>

@@ -1,9 +1,9 @@
-import { useContext } from 'react';
 import styles from './TodoItem.module.css';
-import {TodoListContext} from '../../context';
+import {useDeleteTodo, useSetEditForTodo} from '../../hooks';
 
 export function TodoItem({ todo }) {
-  const { deleteTodo, setEditForTodo } = useContext(TodoListContext);
+	const setEditForTodo = useSetEditForTodo();
+	const deleteTodo = useDeleteTodo();
 
 	return (
 		<li className={styles.todoItem}>

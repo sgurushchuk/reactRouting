@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { UPDATE_REFRESH_LIST_FLAG } from '../actions';
 
-export function useAddTodo(refreshList) {
-	const [isCreating, setIsCreating] = useState(false);
+export function useAddTodo() {
+	const dispatch = useDispatch();
 
 	function addTodo(title) {
-		setIsCreating(true);
 		fetch('http://localhost:3004/tasks', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },
@@ -13,10 +13,9 @@ export function useAddTodo(refreshList) {
 			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
 				console.log(response);
-				refreshList();
-			})
-			.finally(setIsCreating(false));
+				dispatch(UPDATE_REFRESH_LIST_FLAG);
+			});
 	}
 
-	return { isCreating, addTodo };
+	return { addTodo };
 }

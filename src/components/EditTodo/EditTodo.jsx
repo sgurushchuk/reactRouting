@@ -1,10 +1,10 @@
 import styles from './EditTodo.module.css';
-import { useContext, useState } from 'react';
-import {TodoListContext} from '../../context';
+import { useState } from 'react';
+import {useSubmitEditedTodo} from '../../hooks';
 
 export function EditTodo({ todo }) {
 	const [inputValue, setInputValue] = useState(todo.title);
-  const { submitEditedTodo, isUpdating } = useContext(TodoListContext)
+  const { submitEditedTodo } = useSubmitEditedTodo();
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -20,7 +20,7 @@ export function EditTodo({ todo }) {
 				type="text"
 				placeholder="Edit todo"
 			/>
-			<button disabled={isUpdating} className={styles.submitBtn}>Submit</button>
+			<button className={styles.submitBtn}>Submit</button>
 		</form>
 	);
 }

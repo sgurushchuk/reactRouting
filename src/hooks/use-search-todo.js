@@ -1,14 +1,11 @@
-export function useSearchTodo(setTodos) {
+import { useDispatch } from 'react-redux';
+import { searchTodos } from '../actions/searchTodos';
+
+export function useSearchTodo() {
+	const dispatch = useDispatch();
+
 	function searchTodo(searchValue) {
-		fetch('http://localhost:3004/tasks')
-			.then((data) => data.json())
-			.then((loadedTodos) => {
-				setTodos(
-					loadedTodos.filter((todo) =>
-						todo.title.toLowerCase().includes(searchValue.toLowerCase()),
-					),
-				);
-			});
+		dispatch(searchTodos(searchValue));
 	}
 
 	return searchTodo;
